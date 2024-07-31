@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        font-size: 14px;
+      }
+      .container .header {
+        font-size: 18px;
+      }
+      .container .shop-list {
+        list-style: none;
+        margin-left: -15px;
+      }
+      .container .shop-list li.item {
+        color: green;
+      }
+      .container .shop-list .item {
+        /* Explain why does this color not works, and how to fix make it work on
+      1st list */
+        color: blue;
+      }
+      /* 
+      這是因為 css 權重的計算會決定元素適用於哪條規則
+      可以參考 https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity
+      下面是權重計算的方法
+      ID 是 100 
+      Classes, attributes and pseudo-classes 是 10
+      Elements and pseudo-elements 是 1
+      全部加起來就是 css 的權重，權重較高的優先適用
+      .container .shop-list li.item 是三個 Classes 加上一個 Element ，所以權重是 3*10+1=31
+      .container .shop-list .item 是三個，所以權重是 3*10=30
+      31>30 所以套用 .container .shop-list li.item 的樣式
+      要讓 .container .shop-list .item 顯示藍色可以調高他的權重或是用 !important 標記，!important 會覆蓋所有其他不使用 !important 的規則
+      */
+      /* 調高權重 */
+      .container .shop-list ol li.item {
+        color: blue;
+      }
+      /* 用 !important 標記 */
+      .container .shop-list .item {
+        color: blue !important;
+      }
+
+      /* Write styling make every other line give background color to next one */
+      .container .shop-list li:nth-child(odd) {
+        background-color: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">5/8 外出確認表</div>
+      <div class="content">
+        <ol class="shop-list">
+          <li class="item">麵包</li>
+          <li class="item">短袖衣服</li>
+          <li class="item">飲用水</li>
+          <li class="item">帳篷</li>
+        </ol>
+        <ul class="shop-list">
+          <li class="item">暈車藥</li>
+          <li class="item">感冒藥</li>
+          <li class="item">丹木斯</li>
+          <li class="item">咳嗽糖漿</li>
+        </ul>
+      </div>
+      <div class="footer">以上僅共參考</div>
+    </div>
+  </body>
+</html>
